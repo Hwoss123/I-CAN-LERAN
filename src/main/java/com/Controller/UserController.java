@@ -1,6 +1,7 @@
 package com.Controller;
 
 
+import com.Dao.Result;
 import com.Service.userService;
 import com.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public Result login(String username,String password,String UUID,String verificationCode) {
+    public Result login(String username, String password, String UUID, String verificationCode) {
         String factCode = CaptchaController.cache.get(UUID);
         long oldTime = CaptchaController.expire.get(UUID);
         long newTime  = System.currentTimeMillis();

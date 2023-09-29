@@ -2,6 +2,8 @@ package com.Controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
+import com.Dao.Result;
+import com.Dao.kaptcha;
 import com.utils.ToolUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
