@@ -1,4 +1,4 @@
-package com.Dao;
+package com.pojo;
 
 
 import lombok.AllArgsConstructor;

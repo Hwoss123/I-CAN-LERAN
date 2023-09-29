@@ -1,6 +1,6 @@
 package com.Service.impl;
 
-import com.Dao.userDao;
+import com.Mapper.UserMapper;
 import com.Service.userService;
 import com.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class userServiceImpl implements userService {
     @Autowired
-    private userDao userDao;
+    private UserMapper userDao;
 
     @Override
     public boolean isAccountExist(String account) {
