@@ -36,12 +36,12 @@ public class userServiceImpl implements userService {
     }
 
     @Override
-    public boolean updatePassword(String account, String newPassword) {
+    public boolean updatePassword(String account, String password) {
         User user = userDao.FindUserByAccount(account);
         if(user==null){
             return false;
         }
-        userDao.resetPassword(account,newPassword);
+        userDao.resetPassword(account,password);
         return true;
     }
 }

@@ -20,6 +20,6 @@ public interface userDao {
 //    根据账号去获取整个对象
     @Select("select * from user where account = #{account}")
     User FindUserByAccount(String account);
-    @Update("UPDATE user SET password = #{newpassword} WHERE account = #{account}")
+    @Update("UPDATE user SET password = #{newPassword} WHERE account = #{account}")
     int resetPassword(String account,String newPassword);
 }
