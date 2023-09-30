@@ -2,13 +2,14 @@ package com.Controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
+import com.pojo.Result;
+import com.pojo.kaptcha;
 import com.utils.ToolUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
