@@ -2,10 +2,11 @@ package com.Controller;
 
 
 import com.Service.userService;
+import com.pojo.Result;
 import com.pojo.User;
 import com.pojo.VerticalUser;
+import com.utils.Code;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.regex.Pattern;
@@ -20,10 +21,9 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
-        if(userService.login(user)){
-            return Result.success();
-        }
-            return Result.error("登录失败");
+        return userService.login(user) ? Result.success(Code.LOGIN_OK)
+                : Result.error(Code.LOGIN_ERR,"登录失败");
+
     }
     @PostMapping("/register")
     public Result register(@RequestBody VerticalUser verticaluser){
@@ -32,7 +32,7 @@ public class UserController {
         User user = verticaluser.getUser();
         String factCode = CaptchaController.cache.get(UUID);
         if(factCode==null){
-            return Result.error("请输入验证码");
+            return Result.error(Code.REGISTER_ERR,"请输入验证码");
         }
         Long oldTime = CaptchaController.expire.get(UUID);
         if(oldTime==null){
@@ -40,36 +40,32 @@ public class UserController {
         }
         long newTime  = System.currentTimeMillis();
         if(newTime-oldTime>12000){
-            return Result.error("验证码过期");
+            return Result.error(Code.VERTICAL_LOGIN_ERR,"验证码过期");
         }
-        if( factCode.equals(code)){
-            return Result.error("验证码错误");
+        else if(!(factCode.equals(code))){
+            return Result.error(Code.VERTICAL_LOGIN_ERR,"验证码错误");
         }
-        if(!isAtLeastEightCharacters(user.getPassword())) {
-            return Result.error("密码长度至少8位");
+        else if(!isAtLeastEightCharacters(user.getPassword())) {
+            return Result.error(Code.REGISTER_ERR,"密码至少8位");
         }
-        if(isElevenDigits(user.getAccount())){
-            return Result.error("输入的手机号格式错误");
+        else if(!(isElevenDigits(user.getAccount()))){
+            return Result.error(Code.REGISTER_ERR,"手机号格式错误");
         }
-       if(userService.register(user)){
-           return Result.success();
-       }
-       else {
-           return Result.error("注册失败，当前已经有账号");
-       }
+        return userService.register(user) ? Result.success(Code.REGISTER_OK) :
+                Result.error(Code.REGISTER_ERR,"已存在账号");
+
     }
     @PostMapping("/resetPassword")
     public Result resetPassword(@RequestBody User user) {
         String password = user.getPassword();
         String account  = user.getAccount();
         if(!isAtLeastEightCharacters(password)) {
-            return Result.error("密码长度至少8位");
+            return Result.error(Code.LOGIN_ERR,"密码至少8位");
         }
-        if(userService.updatePassword(account, password)){
-            return Result.success();
-        }else {
-            return Result.error("账号错误");
-        }
+        return userService.updatePassword(account, password) ?
+                Result.success(Code.RESET_PASSWORD_OK)
+                : Result.error(Code.RESET_PASSWORD_ERR,"账号错误");
+
     }
     public boolean isElevenDigits(String str) {
         // 使用正则表达式匹配11位数字
