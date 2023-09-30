@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TypeCount {
-    private String type;
-    private Integer count;
+public class VerticalUser {
+    private  User user;
+    private String UUID;
+    private String code;
 }

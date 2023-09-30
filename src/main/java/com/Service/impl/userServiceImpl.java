@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class userServiceImpl implements userService {
     @Autowired
-    private UserMapper userDao;
+    private UserMapper UserMapper;
 
     @Override
     public boolean isAccountExist(String account) {
-        User user = userDao.FindUserByAccount(account);
+        User user = UserMapper.FindUserByAccount(account);
         return user != null;
     }
 
@@ -24,24 +24,24 @@ public class userServiceImpl implements userService {
        if(isAccountExist(account)){
             return false;
        }else{
-           userDao.register(user);
+           UserMapper.register(user);
            return true;
        }
     }
 
     @Override
     public Boolean login(User user) {
-        User user1 = userDao.login(user);
+        User user1 = UserMapper.login(user);
         return user1 != null;
     }
 
     @Override
-    public boolean updatePassword(String account, String newPassword) {
-        User user = userDao.FindUserByAccount(account);
+    public boolean updatePassword(String account, String password) {
+        User user = UserMapper.FindUserByAccount(account);
         if(user==null){
             return false;
         }
-        userDao.resetPassword(account,newPassword);
+        UserMapper.resetPassword(account,password);
         return true;
     }
 }

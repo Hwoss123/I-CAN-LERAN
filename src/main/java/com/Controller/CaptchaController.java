@@ -4,13 +4,13 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import com.pojo.Result;
 import com.pojo.kaptcha;
+import com.utils.Code;
 import com.utils.ToolUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,7 @@ public class CaptchaController {
 
     // 模拟缓存
    static Map<String,String> cache = new HashMap<>();
+//   记录过期
    static Map<String, Long> expire = new HashMap<>();
 
 
@@ -47,8 +48,10 @@ public class CaptchaController {
         }
         expire.put(codeId,  System.currentTimeMillis());
 
-
+        if(codeId.equals("")){
+             return Result.error(Code.VERTICAL_ERR,"验证码获取异常");
+        }
         kaptcha kaptcha = new kaptcha(codeId,lineCaptcha.getImageBase64Data());
-        return Result.success(kaptcha);
+        return Result.success(Code.VERTICAL_OK,kaptcha);
     }
 }

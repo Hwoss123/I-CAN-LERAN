@@ -22,8 +22,10 @@ public class ExtractQuestionsUtils {
         }
         //数据库中每个类型题目的个数
         Map<String, Integer> typeCountMap = createTypeCountMap(typeCounts);
+//        这里就是num/4
         int count = num / typeCountMap.size();
         int index = 0;//遍历的开始索引
+//
         for (Map.Entry<String, Integer> entry : typeCountMap.entrySet()) {
             Integer value = entry.getValue();
             List<Question> subset = getSubset(list, index, index + value -1, count);
@@ -38,6 +40,8 @@ public class ExtractQuestionsUtils {
         return newList;
     }
 
+
+//    采用一个新List对原来的List乱序后返回切割后的List
     private static List<Question> getSubset(List<Question> originalList, int startIndex, int endIndex, int count) {
         // 创建一个用于随机排序的子列表
         List<Question> subList = originalList.subList(startIndex, endIndex);
@@ -50,6 +54,8 @@ public class ExtractQuestionsUtils {
         return shuffledList.subList(0, count);
     }
 
+
+//    创建题目类型和数量从对象里面获取后到Map里面
     private static Map<String, Integer> createTypeCountMap(List<TypeCount> typeCounts) {
         Map<String, Integer> map = new HashMap<>();
         for (TypeCount typeCount : typeCounts) {
