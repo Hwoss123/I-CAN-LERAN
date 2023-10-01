@@ -1,19 +1,36 @@
 package com.Mapper;
 
-import com.pojo.Question;
-import com.pojo.TypeCount;
+import com.pojo.*;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface MBTITestMapper {
 
     //按TF SN JP EI的顺序排序
     @Select("select * from question order by type desc")
-    List<Question> getQuestions();
+    List<Question> selectQuestions();
 
     //计算每个type对应题目的个数
     @Select("SELECT type, COUNT(*) AS count FROM question GROUP BY type ORDER BY type DESC")
-    List<TypeCount> getTypeCount();
+    List<TypeCount> selectTypeCount();
+
+    @Insert("insert into mbti_score(user_id, E, I, S, N, T, F, J, P, result) " +
+            "values(#{userId},#{E},#{I},#{S},#{N},#{T},#{F},#{J},#{P},#{result})")
+    void insertMBTITestScore(TestScore score);
+
+    @Select("SELECT t.mbti_name, i.abbreviation, t.brief_introduction, i.analysis, i.advantage, i.disadvantage," +
+            " i.career_reference, i.undergraduate_program, i.postsecondary_program, i.book_list, i.song_list, i.movie_list" +
+            " FROM mbti_type t JOIN mbti_info i ON t.id = i.mbti_type_id" +
+            " WHERE t.mbti_name = #{mbti}")
+    TestReport selectReportByMBTI(String mbti);
+
+
+    @Select("select id, type, intro from mbti_intro")
+    List<MBTIIntro> selectIntro();
+
 }
