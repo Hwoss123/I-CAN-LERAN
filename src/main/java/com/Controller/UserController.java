@@ -9,6 +9,8 @@ import com.utils.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 @RestController
@@ -31,7 +33,7 @@ public class UserController {
         String code = verticaluser.getCode();
         User user = verticaluser.getUser();
         String factCode = CaptchaController.cache.get(UUID);
-        if(factCode==null){
+        if(code==null){
             return Result.error(Code.REGISTER_ERR,"请输入验证码");
         }
         Long oldTime = CaptchaController.expire.get(UUID);
@@ -43,7 +45,7 @@ public class UserController {
             return Result.error(Code.VERTICAL_LOGIN_ERR,"验证码过期");
         }
         else if(!(factCode.equals(code))){
-            return Result.error(Code.VERTICAL_LOGIN_ERR,"验证码错误");
+            return Result.error(Code.VERTICAL_LOGIN_ERR,"请刷新验证码");
         }
         else if(!isAtLeastEightCharacters(user.getPassword())) {
             return Result.error(Code.REGISTER_ERR,"密码至少8位");
@@ -66,6 +68,22 @@ public class UserController {
                 Result.success(Code.RESET_PASSWORD_OK)
                 : Result.error(Code.RESET_PASSWORD_ERR,"账号错误");
 
+    }
+    @GetMapping("{user_id}")
+    public Result getUserById(@PathVariable  Integer user_id){
+        User user  = userService.getUserById(user_id);
+        if(user == null){
+            return Result.error(Code.FIND_USER_ERR,"查询不到对应的用户");
+        }
+        return Result.success(Code.FIND_USER_OK,user);
+    }
+    @PutMapping("{user_id}")
+    public Result updateUser(@PathVariable Integer user_id,@RequestBody User user){
+        user.setId(user_id);
+//        大写处理
+        user.setMbti(user.getMbti().toUpperCase());
+        user.setInterest_mbti(  user.getInterest_mbti().toUpperCase());
+        return userService.updateUser(user) ? Result.success(Code.USER_UPDATE_OK): Result.error(Code.USER_UPDATE_ERR,"更新失败");
     }
     public boolean isElevenDigits(String str) {
         // 使用正则表达式匹配11位数字
