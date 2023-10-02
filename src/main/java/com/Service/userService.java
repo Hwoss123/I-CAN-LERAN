@@ -13,4 +13,9 @@ public interface userService {
     boolean isAccountExist(String account);
 //
     boolean updatePassword(String account, String newPassword);
+
+    boolean updateAvatar64(Integer user_id, String avatar64);
+
+    User getUserById(Integer user_id);
+    boolean updateUser(User user);
 }

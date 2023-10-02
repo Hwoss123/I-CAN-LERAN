@@ -23,13 +23,14 @@ public interface MBTITestMapper {
             "values(#{userId},#{E},#{I},#{S},#{N},#{T},#{F},#{J},#{P},#{result})")
     void insertMBTITestScore(TestScore score);
 
+//合并type和info,并且存入一个对象
     @Select("SELECT t.mbti_name, i.abbreviation, t.brief_introduction, i.analysis, i.advantage, i.disadvantage," +
             " i.career_reference, i.undergraduate_program, i.postsecondary_program, i.book_list, i.song_list, i.movie_list" +
             " FROM mbti_type t JOIN mbti_info i ON t.id = i.mbti_type_id" +
             " WHERE t.mbti_name = #{mbti}")
     TestReport selectReportByMBTI(String mbti);
 
-
+//获取所有简介
     @Select("select id, type, intro from mbti_intro")
     List<MBTIIntro> selectIntro();
 

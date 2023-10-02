@@ -30,6 +30,21 @@ public class userServiceImpl implements userService {
     }
 
     @Override
+    public boolean updateUser(User user) {
+        return UserMapper.updateUser(user)>0;
+    }
+
+    @Override
+    public User getUserById(Integer user_id) {
+        return UserMapper.FindUserById(user_id);
+    }
+
+    @Override
+    public boolean updateAvatar64(Integer user_id, String avatar64) {
+      return UserMapper.uploadAvatar(user_id, avatar64)>0;
+    }
+
+    @Override
     public Boolean login(User user) {
         User user1 = UserMapper.login(user);
         return user1 != null;

@@ -22,4 +22,9 @@ public interface UserMapper {
     User FindUserByAccount(String account);
     @Update("UPDATE user SET password = #{newPassword} WHERE account = #{account}")
     int resetPassword(String account,String newPassword);
+    @Update("UPDATE user SET avatar = #{avatar64} WHERE id = #{id}")
+    int uploadAvatar(Integer id,String avatar64);
+//更新整个User
+    @Update("UPDATE user SET username = #{username},job = #{job},mbti = #{mbti} ,interest = #{interest},signature = #{signature},interest_mbti =#{interest_mbti} WHERE id = #{id}")
+    int updateUser(User user);
 }

@@ -17,5 +17,6 @@ public class User {
     private String mbti;
     private String interest;
     private String interest_mbti;
-    private String profile;
+    private String avatar;
+    private String signature;
 }

@@ -5,7 +5,7 @@ import cn.hutool.captcha.LineCaptcha;
 import com.pojo.Result;
 import com.pojo.kaptcha;
 import com.utils.Code;
-import com.utils.ToolUtil;
+import com.utils.UUIDUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -38,7 +38,7 @@ public class CaptchaController {
         // 模拟把验证码的值存储到缓存
         if (codeId == null) {
 //            System.out.println("获取图形码");
-            codeId = ToolUtil.simpleUUID();
+            codeId = UUIDUtil.simpleUUID();
             // 保存图形码值
             cache.put(codeId, code);
 //            这里面存的是UUID的图片对应，还有验证码
