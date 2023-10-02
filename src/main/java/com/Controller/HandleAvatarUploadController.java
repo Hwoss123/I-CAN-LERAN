@@ -1,14 +1,11 @@
 package com.Controller;
 
-import com.Service.userService;
+import com.Service.UserService;
 import com.pojo.Result;
 import com.utils.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.Base64;
 import java.util.Map;
 
 
@@ -16,7 +13,7 @@ import java.util.Map;
 @RequestMapping()
 class HandleAvatarUploadController {
     @Autowired
-    private com.Service.userService userService;
+    private UserService userService;
     @PostMapping("/upload-avatar")
     public Result handleAvatarUpload(@RequestBody  Map<String,String> map) {
         // 获取Base64编码格式的头像字符串

@@ -1,28 +1,29 @@
 package com.Controller;
 
 
-import com.Service.userService;
+import com.Service.UserService;
 import com.pojo.Result;
 import com.pojo.User;
 import com.pojo.VerticalUser;
 import com.utils.Code;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
+@Slf4j
 public class UserController {
     @Autowired
-    private userService userService;
+    private UserService userService;
 
 
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
+        log.info("User: " + user.getId()+" is  logging in");
         return userService.login(user) ? Result.success(Code.LOGIN_OK)
                 : Result.error(Code.LOGIN_ERR,"登录失败");
 
@@ -32,6 +33,7 @@ public class UserController {
         String UUID = verticaluser.getUUID();
         String code = verticaluser.getCode();
         User user = verticaluser.getUser();
+        log.info("User: " + user.getId()+" is  registering in");
         String factCode = CaptchaController.cache.get(UUID);
         if(code==null){
             return Result.error(Code.REGISTER_ERR,"请输入验证码");
@@ -41,6 +43,7 @@ public class UserController {
                 oldTime = System.currentTimeMillis();
         }
         long newTime  = System.currentTimeMillis();
+//        前端响应提示
         if(newTime-oldTime>12000){
             return Result.error(Code.VERTICAL_LOGIN_ERR,"验证码过期");
         }
@@ -61,6 +64,7 @@ public class UserController {
     public Result resetPassword(@RequestBody User user) {
         String password = user.getPassword();
         String account  = user.getAccount();
+        log.info("User: " + user.getId()+" is  resetPassword in");
         if(!isAtLeastEightCharacters(password)) {
             return Result.error(Code.LOGIN_ERR,"密码至少8位");
         }
@@ -72,8 +76,11 @@ public class UserController {
     @GetMapping("{user_id}")
     public Result getUserById(@PathVariable  Integer user_id){
         User user  = userService.getUserById(user_id);
+        log.info("get user" + user_id);
         if(user == null){
+            log.info("查询不到对应的用户");
             return Result.error(Code.FIND_USER_ERR,"查询不到对应的用户");
+
         }
         return Result.success(Code.FIND_USER_OK,user);
     }

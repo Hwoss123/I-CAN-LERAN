@@ -33,6 +33,11 @@ public class Code {
     //获取MBTI测试报告
     public static final Integer MBTI_REPORT_OK = 20221;
     public static final Integer MBTI_REPORT_ERR = 10220;
-
+//    匹配度表格
+    public static final Integer DEGREE_OK = 20301;
+    public static final Integer DEGREE_ERR = 10300;
+//    获取匹配用户
+    public static final Integer MATCH_USER_OK = 20311;
+    public static final Integer MATCH_USER_ERR = 10300;
 
 }

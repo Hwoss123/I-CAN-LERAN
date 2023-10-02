@@ -4,6 +4,7 @@ import com.pojo.MBTIResult;
 import com.pojo.Question;
 import com.pojo.TestReport;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
