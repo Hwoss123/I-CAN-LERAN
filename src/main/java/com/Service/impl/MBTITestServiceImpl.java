@@ -31,7 +31,7 @@ public class MBTITestServiceImpl implements MBTITestService {
 
 
     @Override
-    public String getTestResult(String jwt, Map<Integer, String> map) {
+    public MBTIResult getTestResult(String jwt, Map<Integer, String> map) {
         TestScore score = new TestScore();
         //解析jwt
         Claims claims = JwtUtils.parseJwt(jwt);
@@ -64,7 +64,12 @@ public class MBTITestServiceImpl implements MBTITestService {
         //添加到表中
         mbtiTestMapper.insertMBTITestScore(score);
 
-        return score.getResult();
+        MBTIResult mbtiResult = new MBTIResult();
+        mbtiResult.setMbtiName(result);
+
+        mbtiResult.calculateProportion(score.getI(),score.getE(),score.getS(),score.getN(),score.getT(),score.getF(),score.getJ(),score.getP());
+
+        return mbtiResult;
     }
 
     @Override

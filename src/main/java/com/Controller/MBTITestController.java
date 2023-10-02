@@ -1,6 +1,7 @@
 package com.Controller;
 
 import com.Service.MBTITestService;
+import com.pojo.MBTIResult;
 import com.pojo.Question;
 import com.pojo.Result;
 import com.pojo.TestReport;
@@ -47,10 +48,10 @@ public class MBTITestController {
         //获取请求头中的令牌(token)
         String jwt = req.getHeader("token");
 
-        String mbti = mbtiTestService.getTestResult(jwt, map);
+        MBTIResult mbtiResult = mbtiTestService.getTestResult(jwt, map);
 
         try {
-            return Result.success(Code.MBTI_RESULT_OK, mbti);
+            return Result.success(Code.MBTI_RESULT_OK, mbtiResult);
         } catch (Exception e) {
             log.info("MBTI获取结果出错:{}", e.getMessage());
             return Result.error(Code.MBTI_RESULT_ERR, "获取结果出错");
