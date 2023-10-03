@@ -36,6 +36,11 @@ public class MatchController {
             log.info("获取匹配度失败");
             return   Result.error(Code.DEGREE_ERR,"获取匹配度失败");
         }
+
+
+
+
+//
 //        用fastjson会改变msg位置
 //        return    JSONObject.toJSONString(Result.success(Code.DEGREE_OK,matchDegree), SerializerFeature.WriteMapNullValue);
         return   Result.success(Code.DEGREE_OK,matchDegree);

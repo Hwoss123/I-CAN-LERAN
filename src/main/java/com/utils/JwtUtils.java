@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class JwtUtils {
     private static final byte[] signKey = "MBTI_SignKey$gduf_java_tribe_find me".getBytes();
-    private static final Long expire = 604800000L;//7天过期
+    private static final Long expire = 6048000000L;//7天过期*10
 
     /**
      * 生成JWT令牌
