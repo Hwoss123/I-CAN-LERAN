@@ -9,11 +9,11 @@ public class GlobalCorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // 设置允许跨域的路由，这里如果修改可能出现bug，springboot目前的注解CrossOrigin失效问题未找到，排除版本错误
                 registry.addMapping("/**")
-                // 设置允许跨域请求的域名
+                // 允许跨域请求的域名
                 .allowedOriginPatterns("*")
-                // 是否允许任意证书
+                // 允许任意证书
                 .allowCredentials(true)
-                // 设置允许的方法
+                // 允许的方法
                 .allowedMethods("*")
                 // 跨域允许时间
                 .maxAge(36000);

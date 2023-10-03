@@ -6,8 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
+//    获取所有的用户
+    @Select("select * from user")
+    List<User>  getUsers();
 //    登录看是否你查询到User
     @Select("select * from user where account = #{account} and password = #{password}")
     User login(User user);
@@ -27,4 +32,7 @@ public interface UserMapper {
 //更新整个User
     @Update("UPDATE user SET username = #{username},job = #{job},mbti = #{mbti} ,interest = #{interest},signature = #{signature},interest_mbti =#{interest_mbti} WHERE id = #{id}")
     int updateUser(User user);
+//    根据mbti去获取对象集合
+    @Select("SELECT * FROM user WHERE mbti = #{mbti}")
+    List<User> getUsersByMBTI(String mbti);
 }

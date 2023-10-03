@@ -1,15 +1,22 @@
 package com.Service.impl;
 
 import com.Mapper.UserMapper;
-import com.Service.userService;
+import com.Service.UserService;
 import com.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class userServiceImpl implements userService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper UserMapper;
+
+    @Override
+    public List<User> getUsers() {
+        return UserMapper.getUsers();
+    }
 
     @Override
     public boolean isAccountExist(String account) {
@@ -48,6 +55,11 @@ public class userServiceImpl implements userService {
     public Boolean login(User user) {
         User user1 = UserMapper.login(user);
         return user1 != null;
+    }
+
+    @Override
+    public List<User> getUsersByMBTI(String mbti) {
+        return UserMapper.getUsersByMBTI(mbti);
     }
 
     @Override
