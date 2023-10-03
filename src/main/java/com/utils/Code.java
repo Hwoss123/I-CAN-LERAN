@@ -39,5 +39,7 @@ public class Code {
 //    获取匹配用户
     public static final Integer MATCH_USER_OK = 20311;
     public static final Integer MATCH_USER_ERR = 10300;
-
+//    获取聊天记录
+    public static final Integer CHAT_HISTORY_OK  = 20321;
+    public static final Integer CHAT_HISTORY_ERR = 10320;
 }
