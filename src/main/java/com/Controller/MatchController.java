@@ -2,10 +2,6 @@ package com.Controller;
 
 
 import com.Service.MatchService;
-import com.Service.UserService;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.pojo.MBTIResult;
 import com.pojo.Match_Degree;
 import com.pojo.Result;
 import com.pojo.User;
@@ -15,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -32,19 +29,18 @@ public class MatchController {
         String jwt = req.getHeader("token");
         //    根据id去获取对象的mbti，这里注意如果对象的mbti是null那么就会获取失败
         Match_Degree matchDegree = matchService.getDegree(jwt);
-        if(matchDegree==null){
+        if (matchDegree == null) {
             log.info("获取匹配度失败");
-            return   Result.error(Code.DEGREE_ERR,"获取匹配度失败");
+            return Result.error(Code.DEGREE_ERR, "获取匹配度失败");
         }
-
-
 
 
 //
 //        用fastjson会改变msg位置
 //        return    JSONObject.toJSONString(Result.success(Code.DEGREE_OK,matchDegree), SerializerFeature.WriteMapNullValue);
-        return   Result.success(Code.DEGREE_OK,matchDegree);
+        return Result.success(Code.DEGREE_OK, matchDegree);
     }
+
     @PostMapping()
     public Result match(@RequestBody(required = false) Map<String, List<String>> map) {
 //        这里看前端传的数据有多少个选择

@@ -109,7 +109,6 @@ public class UserController {
         user.setId(user_id);
 //        大写处理
         user.setMbti(user.getMbti().toUpperCase());
-
         user.setInterest_mbti(  user.getInterest_mbti().toUpperCase());
         return userService.updateUser(user) ? Result.success(Code.USER_UPDATE_OK): Result.error(Code.USER_UPDATE_ERR,"更新失败");
     }
