@@ -20,5 +20,6 @@ public interface RadioWaveMapper {
     @Select("select friend_id from friend_list where user_id = #{id} and identification = #{identification}")
     List<Integer> selectWaitingByIdent(Integer id, Integer identification);
 
+
     List<User> selectUserById(List<Integer> idList);
 }
