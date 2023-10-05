@@ -40,4 +40,21 @@ public class Code {
     public static final Integer MATCH_USER_OK = 20311;
     public static final Integer MATCH_USER_ERR = 10300;
 
+    //发送电波
+    public static final Integer WAVE_SEND_OK = 20401;
+    public static final Integer WAVE_SEND_ERR = 10400;
+
+    //接受电波
+    public static final Integer WAVE_ACCEPT_OK = 20411;
+    public static final Integer WAVE_ACCEPT_ERR = 10410;
+
+    //查询列表
+    public static final Integer QUERY_WAITING_OK = 20421;
+    public static final Integer QUERY_WAITING_ERR = 10420;
+    public static final Integer QUERY_FRIEND_OK = 20431;
+    public static final Integer QUERY_FRIEND_ERR = 10430;
+
+
+
+
 }
