@@ -1,16 +1,16 @@
 package com.pojo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VerticalUser {
-    private  User user;
-    private String uuid;
-    private String code;
+public class Chat_each {
+    private List<Chat_records> senders;
+    private List<Chat_records> recipients;
 }
