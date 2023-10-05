@@ -1,4 +1,4 @@
-package com.Service;
+package com.service;
 
 import com.pojo.Chat_each;
 

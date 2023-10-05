@@ -42,4 +42,24 @@ public class Code {
 //    获取聊天记录
     public static final Integer CHAT_HISTORY_OK  = 20321;
     public static final Integer CHAT_HISTORY_ERR = 10320;
+//    发送聊天
+    public static final Integer CHAT_OK  = 20331;
+    public static final Integer CHAT_ERR = 10330;
+
+
+    //发送电波
+    public static final Integer WAVE_SEND_OK = 20401;
+    public static final Integer WAVE_SEND_ERR = 10400;
+
+    //接受电波
+    public static final Integer WAVE_ACCEPT_OK = 20411;
+    public static final Integer WAVE_ACCEPT_ERR = 10410;
+
+    //查询列表
+    public static final Integer QUERY_WAITING_OK = 20421;
+    public static final Integer QUERY_WAITING_ERR = 10420;
+    public static final Integer QUERY_FRIEND_OK = 20431;
+    public static final Integer QUERY_FRIEND_ERR = 10430;
+
+
 }

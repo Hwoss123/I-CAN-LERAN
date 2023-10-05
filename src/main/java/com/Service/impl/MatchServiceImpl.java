@@ -1,13 +1,11 @@
-package com.Service.impl;
+package com.service.impl;
 
-import com.Mapper.MatchMapper;
-import com.Mapper.UserMapper;
-import com.Service.MatchService;
-import com.Service.UserService;
+import com.mapper.MatchMapper;
+import com.mapper.UserMapper;
+import com.service.MatchService;
+import com.service.UserService;
 import com.pojo.Match_Degree;
-import com.pojo.Result;
 import com.pojo.User;
-import com.utils.Code;
 import com.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;

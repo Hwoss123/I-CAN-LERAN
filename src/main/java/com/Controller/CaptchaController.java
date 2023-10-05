@@ -1,4 +1,4 @@
-package com.Controller;
+package com.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
@@ -29,8 +29,9 @@ public class CaptchaController {
     @GetMapping("/identifyImage")
     public Result identifyImage(
                               @ApiParam(value = "图形验证码id,无值：生成验证码，有值:刷新验证码")
-                              @RequestParam(name = "codeId", required = false) String codeId,
-                              @RequestParam(required = false)String UUID) throws IOException {
+                              @RequestParam(name = "codeId", required = false) String codeId
+//                              @RequestParam(required = false)String UUID
+    ) throws IOException {
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 90, 4, 100);
         // 验证码值

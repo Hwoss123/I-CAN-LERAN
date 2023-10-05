@@ -1,4 +1,4 @@
-package com.Mapper;
+package com.mapper;
 
 import com.pojo.User;
 import org.apache.ibatis.annotations.Insert;

@@ -1,6 +1,6 @@
-package com.Controller;
+package com.controller;
 
-import com.Service.UserService;
+import com.service.UserService;
 import com.pojo.Result;
 import com.utils.Code;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.Mapper;
+package com.mapper;
 
 import com.pojo.Match_Degree;
 import org.apache.ibatis.annotations.Mapper;

@@ -1,7 +1,7 @@
-package com.Service.impl;
+package com.service.impl;
 
-import com.Mapper.ChatMapper;
-import com.Service.ChatService;
+import com.mapper.ChatMapper;
+import com.service.ChatService;
 import com.pojo.Chat_each;
 import com.pojo.Chat_records;
 import com.utils.JwtUtils;
@@ -10,7 +10,6 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service

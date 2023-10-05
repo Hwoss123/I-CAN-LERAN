@@ -1,11 +1,7 @@
-package com.Controller;
+package com.controller;
 
 
-import com.Service.MatchService;
-import com.Service.UserService;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.pojo.MBTIResult;
+import com.service.MatchService;
 import com.pojo.Match_Degree;
 import com.pojo.Result;
 import com.pojo.User;

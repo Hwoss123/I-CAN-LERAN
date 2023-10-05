@@ -1,4 +1,4 @@
-package com.Service;
+package com.service;
 
 import com.pojo.Match_Degree;
 import com.pojo.User;

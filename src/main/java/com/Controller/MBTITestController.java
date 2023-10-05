@@ -1,6 +1,6 @@
-package com.Controller;
+package com.controller;
 
-import com.Service.MBTITestService;
+import com.service.MBTITestService;
 import com.pojo.MBTIResult;
 import com.pojo.Question;
 import com.pojo.Result;

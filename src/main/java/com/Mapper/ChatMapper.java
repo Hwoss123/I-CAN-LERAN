@@ -1,4 +1,4 @@
-package com.Mapper;
+package com.mapper;
 
 import com.pojo.Chat_records;
 import org.apache.ibatis.annotations.Mapper;

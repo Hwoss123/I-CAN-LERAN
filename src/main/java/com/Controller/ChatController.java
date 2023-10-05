@@ -1,9 +1,10 @@
-package com.Controller;
+package com.controller;
 
-import com.Service.ChatService;
+import com.service.ChatService;
 import com.pojo.Chat_each;
 import com.pojo.Result;
 import com.utils.Code;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/chat")
+@Slf4j
 public class ChatController {
 @Autowired
     private ChatService chatService;
@@ -24,6 +26,10 @@ public class ChatController {
         String toIdStr = map.get("toId");
         int toId = Integer.parseInt(toIdStr);
         Chat_each chatRecords = chatService.getChatRecords(jwt, toId);
+        if(chatRecords==null){
+            log.info("Char Records not found");
+            Result.error(Code.CHAT_HISTORY_ERR,"获取聊天记录失败");
+        }
         return Result.success(Code.CHAT_HISTORY_OK, chatRecords);
     }
 }

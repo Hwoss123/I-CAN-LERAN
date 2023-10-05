@@ -1,8 +1,7 @@
-package com.Service;
+package com.service;
 
 import com.pojo.User;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 public interface UserService {

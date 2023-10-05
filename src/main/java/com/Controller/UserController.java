@@ -1,7 +1,7 @@
-package com.Controller;
+package com.controller;
 
 
-import com.Service.UserService;
+import com.service.UserService;
 import com.pojo.Result;
 import com.pojo.User;
 import com.pojo.VerticalUser;
@@ -10,7 +10,6 @@ import com.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +37,7 @@ public class UserController {
     }
     @PostMapping("/register")
     public Result register(@RequestBody VerticalUser verticaluser){
-        String UUID = verticaluser.getUUID();
+        String UUID = verticaluser.getUuid();
         String code = verticaluser.getCode();
         User user = verticaluser.getUser();
 
@@ -56,7 +55,7 @@ public class UserController {
 
         long newTime  = System.currentTimeMillis();
 //        前端响应提示
-        if(newTime-oldTime>12000){
+        if(newTime-oldTime>1200000){
             return Result.error(Code.VERTICAL_LOGIN_ERR,"验证码过期");
         }
 
@@ -69,6 +68,9 @@ public class UserController {
         else if(!(isElevenDigits(user.getAccount()))){
             return Result.error(Code.REGISTER_ERR,"手机号格式错误");
         }
+        String uuid = UUID.toString().replaceAll("-", "");
+        String username = uuid.substring(0, 8);
+        user.setUsername(username);
         return userService.register(user) ? Result.success(Code.REGISTER_OK) :
                 Result.error(Code.REGISTER_ERR,"已存在账号");
 

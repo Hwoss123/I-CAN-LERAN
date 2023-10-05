@@ -1,7 +1,7 @@
-package com.Service.impl;
+package com.service.impl;
 
-import com.Mapper.MBTITestMapper;
-import com.Service.MBTITestService;
+import com.mapper.MBTITestMapper;
+import com.service.MBTITestService;
 import com.pojo.*;
 import com.utils.ExtractQuestionsUtils;
 import com.utils.JwtUtils;
@@ -9,7 +9,6 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
