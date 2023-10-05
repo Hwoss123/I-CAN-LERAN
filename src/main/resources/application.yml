@@ -6,7 +6,7 @@ spring:
     username: root
     password:
 
-#
+
 #spring:
 #      #数据库连接信息
 #  datasource:

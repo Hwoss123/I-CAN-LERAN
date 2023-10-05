@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 @RestController
@@ -28,11 +30,19 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
-        log.info("User: " + user.getId()+" is  logging in");
+        log.info("User: " + user.getId() + " is  logging in");
 
-        return userService.login(user) ? Result.success(Code.LOGIN_OK)
+        User login = userService.login(user);
 
-                : Result.error(Code.LOGIN_ERR,"登录失败");
+        if (login != null){
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",login.getId());
+            map.put("account",login.getAccount());
+            String jwt = JwtUtils.generateJwt(map);
+            return Result.success(Code.LOGIN_OK,jwt);
+        }
+
+        return Result.error(Code.LOGIN_ERR, "登录失败");
 
     }
     @PostMapping("/register")

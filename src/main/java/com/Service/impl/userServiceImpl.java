@@ -13,6 +13,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper UserMapper;
 
+
+
     @Override
     public List<User> getUsers() {
         return UserMapper.getUsers();
@@ -52,9 +54,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean login(User user) {
-        User user1 = UserMapper.login(user);
-        return user1 != null;
+    public User login(User user) {
+        return UserMapper.login(user);
     }
 
     @Override

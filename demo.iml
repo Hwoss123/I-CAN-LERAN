@@ -119,7 +119,6 @@
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.71" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:2.7.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-websocket:2.7.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.3.30" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-websocket:5.3.30" level="project" />

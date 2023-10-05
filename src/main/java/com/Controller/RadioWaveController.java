@@ -41,7 +41,7 @@ public class RadioWaveController {
         }
     }
 
-    @PutMapping("/accpet/{addId}")
+    @GetMapping("/accept/{addId}")
     public Result addFriend(@PathVariable Integer addId) {
 
         try {

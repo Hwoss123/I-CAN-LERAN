@@ -3,6 +3,7 @@ package com.service.impl;
 import com.mapper.MatchMapper;
 import com.mapper.UserMapper;
 import com.service.MatchService;
+import com.service.RadioWaveService;
 import com.service.UserService;
 import com.pojo.Match_Degree;
 import com.pojo.User;
@@ -24,18 +25,26 @@ public class MatchServiceImpl implements MatchService {
     private MatchMapper matchMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    RadioWaveService radioWaveService;
+
     @Override
     public List<User> matching(String jwt,Map<String, List<String>> map) {
+
         List<String> list = new ArrayList<String>();
 
         List<User> returnList = new ArrayList<User>();
-        List<User> userList = userService.getUsers();
+        Claims claims = JwtUtils.parseJwt(jwt);
+        Integer id =(Integer) claims.get("id");
+//      注意这里返回的List里面 是需要去掉好友和等待列表以及自己，
+        List<User> userList = filtration(id);
         if (map==null){
 //     不传值默认返回随机5
             Collections.shuffle(userList);
             returnList.addAll(userList);
-            returnList = new ArrayList<>(userList.subList(0,5));
+//            returnList = new ArrayList<>(userList.subList(0,5));
         }
+
         else {
 //            传值
 //                returnList = new ArrayList<>(userList.subList(0,5));
@@ -49,7 +58,7 @@ public class MatchServiceImpl implements MatchService {
                     returnList.addAll(tempUserList);
                 }
                 Collections.shuffle(returnList);
-                returnList = new ArrayList<>(returnList.subList(0,5));
+//                returnList = new ArrayList<>(returnList.subList(0,5));
             }
 //               这里如果要保证刷新的五个不会重复以及匹配到的需要和后面的重复，思路是查询当前id的好友和等待列表然后去掉对应（待完善）
         return returnList;
@@ -67,4 +76,22 @@ public class MatchServiceImpl implements MatchService {
         //        注意这里degree是包含第一个mbti类型的
         return matchMapper.getDegreeByMBTI(mbti);
     }
+
+    public  List<User> filtration(Integer id){
+
+//        获取需要不再显示的集合
+        List<User> returnLists = new ArrayList<User>();
+        List<User> queryFriendsList = radioWaveService.queryFriendsList(id);
+        List<User> queryWaitingList = radioWaveService.queryWaitingList(id);
+        returnLists.addAll(queryFriendsList);
+        returnLists.addAll(queryWaitingList);
+        User self = userService.getUserById(id);
+        returnLists.add(self);
+
+//        总的获取一次然后删掉上面的
+        List<User> userList = userService.getUsers();
+         userList.removeAll(returnLists);
+        return  userList;
+    }
+
 }
