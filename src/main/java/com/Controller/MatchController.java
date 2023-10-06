@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Slf4j
@@ -42,17 +43,31 @@ public class MatchController {
         return   Result.success(Code.DEGREE_OK,matchDegree);
     }
     @PostMapping()
-    public Result match(@RequestBody(required = false) Map<String, List<String>> map) {
+    public Result match(@RequestBody(required = false) Map<String, List<String>> map, HttpSession session) {
 //        这里看前端传的数据有多少个选择
         String jwt = req.getHeader("token");
 
-        List<User> returnList = matchService.matching(jwt, map);
-        Claims claims = JwtUtils.parseJwt(jwt);
-        Integer id = (Integer) claims.get("id");
-        ListMap.put(id, returnList);
+
+        if (session.isNew()) {
+            List<User> resultList = matchService.matching(jwt, map);
+            session.setAttribute("resultList", resultList);
+            //        这里返回的就是直接处理过后数据
+            Claims claims = JwtUtils.parseJwt(jwt);
+            Integer id = (Integer) claims.get("id");
+//        这是类似缓存
+            ListMap.put(id, resultList);
+        }
+
+        List<User> returnList = (List<User>) session.getAttribute("resultList");
+
+
+        List<User> userList = new ArrayList<>();
 //        返回的是调整后的，每次进行这个url就要重新获取一次，点击刷新就减掉里面的
-        List<User> userList = new ArrayList<>(returnList.subList(0,5));
-        if (returnList == null) {
+        if (returnList.size()<5){
+            userList = new ArrayList<>(returnList);
+        }else {
+            userList = new ArrayList<>(returnList.subList(0,5));}
+        if (returnList.size()==0) {
             log.info("get Users failed");
             return Result.error(Code.MATCH_USER_ERR, "获取用户异常");
         }
@@ -74,5 +89,14 @@ public class MatchController {
         return Result.success(Code.MATCH_USER_OK, remove);
     }
 
+    @GetMapping("/match")
+    public Result match(HttpSession session) {
+        // 清除上一次匹配的缓存
 
+        if (session.getAttribute("resultList") != null) {
+            // 存在则进行删除
+            session.removeAttribute("resultList");
+        }
+        return Result.success();
+    }
 }

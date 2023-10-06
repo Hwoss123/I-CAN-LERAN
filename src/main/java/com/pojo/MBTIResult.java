@@ -22,17 +22,16 @@ public class MBTIResult {
     private double PProportion;//P的比例
 
     public void calculateProportion(int I, int E, int S, int N, int T, int F, int J, int P) {
-        int num = I + E + S + N + T + F + J + P;
         // 使用BigDecimal保留两位小数
         // 将保留两位小数后的值转为double
-        IProportion = numConversion2Double(I,num);
-        EProportion = numConversion2Double(E,num);
-        SProportion = numConversion2Double(S,num);
-        NProportion = numConversion2Double(N,num);
-        TProportion = numConversion2Double(T,num);
-        FProportion = numConversion2Double(F,num);
-        JProportion = numConversion2Double(J,num);
-        PProportion = numConversion2Double(P,num);
+        IProportion = numConversion2Double(I,I+E);
+        EProportion = numConversion2Double(E,I+E);
+        SProportion = numConversion2Double(S,S+N);
+        NProportion = numConversion2Double(N,S+N);
+        TProportion = numConversion2Double(T,T+F);
+        FProportion = numConversion2Double(F,T+F);
+        JProportion = numConversion2Double(J,J+P);
+        PProportion = numConversion2Double(P,J+P);
     }
 
     private double numConversion2Double(int value, int total) {

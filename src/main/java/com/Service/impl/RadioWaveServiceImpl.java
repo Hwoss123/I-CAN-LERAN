@@ -9,6 +9,7 @@ import com.utils.Identification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,8 +50,6 @@ public class RadioWaveServiceImpl implements RadioWaveService {
             //根据List返回结果
             return radioWaveMapper.selectUserById(idList);
         }
-        return null;
+        return new ArrayList<User>();
     }
-
-
 }

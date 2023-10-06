@@ -37,11 +37,12 @@ public class MatchServiceImpl implements MatchService {
         Claims claims = JwtUtils.parseJwt(jwt);
         Integer id =(Integer) claims.get("id");
 //      注意这里返回的List里面 是需要去掉好友和等待列表以及自己，
-        List<User> userList = filtration(id);
-        if (map==null){
-//     不传值默认返回随机5
-            Collections.shuffle(userList);
-            returnList.addAll(userList);
+
+        if (map==null||map.size()==0) {
+            List<User> userList = userService.getUsers();
+            List<User> filtration = filtration(userList, id);
+//获取所有用户，走一次过滤后随机后添加
+            returnList.addAll(filtration);
 //            returnList = new ArrayList<>(userList.subList(0,5));
         }
 
@@ -51,16 +52,20 @@ public class MatchServiceImpl implements MatchService {
                 if(map.containsKey("MBTI")){
                     list = map.get("MBTI");
                 }
+            List<User> userList = new ArrayList<>();
 //            获取选择后筛选出只包含选择的集合userList，获取所有userList后进行操作
                 for (String mbti : list) {
 //                分别去获取对应的用户加上去再打乱
                     List<User> tempUserList  = userService.getUsersByMBTI(mbti);
-                    returnList.addAll(tempUserList);
+                    userList.addAll(tempUserList);
+//                    这里的returnList是包含所选的mbti类型的组，这里没有过滤
                 }
-                Collections.shuffle(returnList);
+                returnList= filtration(userList, id);
+
 //                returnList = new ArrayList<>(returnList.subList(0,5));
             }
 //               这里如果要保证刷新的五个不会重复以及匹配到的需要和后面的重复，思路是查询当前id的好友和等待列表然后去掉对应（待完善）
+        Collections.shuffle(returnList);
         return returnList;
     }
 
@@ -77,8 +82,10 @@ public class MatchServiceImpl implements MatchService {
         return matchMapper.getDegreeByMBTI(mbti);
     }
 
-    public  List<User> filtration(Integer id){
+    public  List<User> filtration(List<User> userList,Integer id){
 
+
+//        传入需要过滤的集合以及id
 //        获取需要不再显示的集合
         List<User> returnLists = new ArrayList<User>();
         List<User> queryFriendsList = radioWaveService.queryFriendsList(id);
@@ -88,8 +95,7 @@ public class MatchServiceImpl implements MatchService {
         User self = userService.getUserById(id);
         returnLists.add(self);
 
-//        总的获取一次然后删掉上面的
-        List<User> userList = userService.getUsers();
+
          userList.removeAll(returnLists);
         return  userList;
     }
